@@ -51,8 +51,8 @@ public class RGS {
             ParseUrl.BirthdayTxt(congratulations);
             ArrayList<String> days = new ArrayList<>();
             CS.FindBirthday(days, 3);
-            for (String bday : days) {
-                Gift gift = new Gift(bday, congratulations, pictures);
+            for (String birthday : days) {
+                Gift gift = new Gift(birthday, congratulations, pictures);
                 gift.BirthDayGreetings();
             }
             System.out.println("Idle");

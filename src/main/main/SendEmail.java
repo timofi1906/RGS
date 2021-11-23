@@ -26,7 +26,7 @@ public class SendEmail {
      */
     public static void SendBirthdaySMS(String email, String subject, String text, String path, String FileName) {
 
-        final String username = "timofei190612@gmail.com";
+        final String username = "pisoskot1337@gmail.com";
         final String password = "tima5193192";
 
         Properties props = new Properties();
