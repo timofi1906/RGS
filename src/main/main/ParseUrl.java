@@ -36,9 +36,8 @@ public class ParseUrl {
      * Function to parse Birthday pictures
      * @param Url Url for thematic picture
      * @param list Empty list for pictures
-     * @return List with Birthday pictures
      */
-    public static ArrayList<String> PicUrl(String Url, ArrayList<String> list ) throws IOException {
+    public static void PicUrl(String Url, ArrayList<String> list ){
         String site = "https://www.greetingsisland.com";
         try {
             Document page = Jsoup.connect(Url).get();
@@ -59,7 +58,6 @@ public class ParseUrl {
             }
         } catch (IndexOutOfBoundsException | IOException ignored) {}
 
-        return list;
     }
 }
 

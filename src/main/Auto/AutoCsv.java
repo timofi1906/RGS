@@ -62,14 +62,14 @@ public class AutoCsv {
         String lineText;
         while ((lineText = lineReader.readLine()) != null) {
             String[] info = lineText.split(",");
-            String name, surname, gender,bdate,zodiac, mail;
+            String name, surname, gender,birthdaydate,zodiac, mail;
 
             name = info[0];
             surname = info[1];
             gender = info[2];
-            bdate = info[3];
+            birthdaydate = info[3];
             mail = info[4];
-            zodiac = Functions.getZodiac(bdate);
+            zodiac = Functions.getZodiac(birthdaydate);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, surname);
             preparedStatement.setString(3, gender);
@@ -86,18 +86,17 @@ public class AutoCsv {
      * Function to find the closest Day of birth.
      * @param list Empty list for info
      * @param days Set interval between  now Date and Date + days
-     * @return List with information about friends birthdays
      * @throws SQLException If a database access error occurs or this method is called on a closed connection
      */
-    public ArrayList<String> FindBday(ArrayList<String> list,int days) throws SQLException {
+    public void FindBirthday(ArrayList<String> list, int days) throws SQLException {
 
 
         Statement statement = connection.createStatement();
         Date date = new Date();
-        Date dateplus = DateAdd(date, days);
+        Date date_add = DateAdd(date, days);
 
         String query = "SELECT  * FROM friends tbl WHERE DATE_FORMAT(tbl.Bdate, '%m-%d') BETWEEN " +
-                "'%s' AND '%s'".formatted(formatter.format(date),formatter.format(dateplus)) +
+                "'%s' AND '%s'".formatted(formatter.format(date),formatter.format(date_add)) +
                 " ORDER BY DAYOFMONTH(Bdate) ASC;";
 
         ResultSet resultSet = statement.executeQuery(query);
@@ -111,10 +110,9 @@ public class AutoCsv {
         resultSet.close();
         statement.close();
 
-        return list;
     }
-    public ArrayList<String> Holiday(ArrayList<String> list,String Gender) throws SQLException {
-        String query = "";
+    public void Holiday(ArrayList<String> list, String Gender) throws SQLException {
+        String query;
         Statement statement = connection.createStatement();
         if(!Gender.toLowerCase().contains("all")){
             query = "SELECT Email FROM friends_info.friends WHERE Gender = %s ;".formatted(Gender);
@@ -128,7 +126,6 @@ public class AutoCsv {
         resultSet.close();
         statement.close();
 
-        return list;
     }
 
     /**
@@ -139,6 +136,7 @@ public class AutoCsv {
     public void ClearCopy(Statement statement) throws SQLException {
         String Clear = "DELETE t1 FROM friends t1 INNER JOIN friends t2 WHERE t1.id < t2.id AND t1.email = t2.email";
         statement.executeUpdate(Clear);
+        System.out.println("Copy data cleared");
     }
 
     /**

@@ -66,6 +66,10 @@ public class Functions {
                 !line.toLowerCase().contains("daughter") && !line.toLowerCase().contains("aunt") ;
 
     }
+    public static boolean WordFilter(String line){
+        return !line.contains("More like this") && !line.contains("SVG") && !line.contains("111921")
+                && !line.contains("Profanity") ;
+    }
 
     public static void Holidays(Map<String,String[]> table){
         String[] christmas = {"All", "https://www.greetingsisland.com/cards/holidays/christmas/1","Christmas"}; //Christmas

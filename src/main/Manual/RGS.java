@@ -50,7 +50,7 @@ public class RGS {
             ParseUrl.PicUrl("https://www.greetingsisland.com/cards/birthday/funny/1", pictures);
             ParseUrl.BirthdayTxt(congratulations);
             ArrayList<String> days = new ArrayList<>();
-            CS.FindBday(days, 3);
+            CS.FindBirthday(days, 3);
             for (String bday : days) {
                 Gift gift = new Gift(bday, congratulations, pictures);
                 gift.BirthDayGreetings();

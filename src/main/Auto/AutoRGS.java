@@ -36,7 +36,7 @@ public class AutoRGS {
             ParseUrl.PicUrl("https://www.greetingsisland.com/cards/birthday/funny/1", pictures);
             ParseUrl.BirthdayTxt(congratulations);
             ArrayList<String> days = new ArrayList<>();
-            AC.FindBday(days, 3);
+            AC.FindBirthday(days, 0);
             for (String bday : days) {
                 Gift gift = new Gift(bday, congratulations, pictures);
                 gift.BirthDayGreetings();

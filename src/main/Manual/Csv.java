@@ -2,7 +2,6 @@ package Manual;
 
 import main.Functions;
 
-import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -17,8 +16,7 @@ import java.util.Date;
  * @since   2021-10-18
  */
 
-public class
-Csv {
+public class Csv {
 
     protected final ArrayList<String> friends;
 
@@ -34,9 +32,8 @@ Csv {
     /**
      * Function CSVtoDB to connect to data table and input info about friends.
      * @throws SQLException if a database access error occurs or this method is called on a closed connection
-     * @throws IOException Wrong path or missed file
      */
-    public void InfoToDB () throws SQLException, IOException {
+    public void InfoToDB () throws SQLException {
 
         connection.setAutoCommit(false);
         Statement statement = connection.createStatement();
@@ -48,22 +45,51 @@ Csv {
         AddFriendToTable(preparedStatement,friends);
         ClearCopy(statement);
     }
+
+    /**
+     * Function to add friends to table
+     * @param preparedStatement Prepared Statement
+     * @param friends Array List with friends
+     * @throws SQLException if a database access error occurs or this method is called on a closed connection
+     */
+    public void AddFriendToTable(PreparedStatement preparedStatement,ArrayList<String> friends) throws SQLException {
+        for(String f : friends){
+            String[] info = f.split(" ");
+            String name, surname, gender,bdate,zodiac, mail;
+
+            name = info[0];
+            surname = info[1];
+            gender = info[2];
+            bdate = info[3];
+            mail = info[4];
+            zodiac = Functions.getZodiac(bdate);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, surname);
+            preparedStatement.setString(3, gender);
+            preparedStatement.setDate(4, java.sql.Date.valueOf(info[3]));
+            preparedStatement.setString(5,zodiac);
+            preparedStatement.setString(6, mail);
+            preparedStatement.addBatch();
+            System.out.println("Data has been inserted successfully.");
+        }
+
+        preparedStatement.executeBatch();
+    }
     /**
      * Function to find the closest Day of birth.
      * @param list Empty list for info
      * @param days Set interval between  now Date and Date + days
-     * @return List with information about friends birthdays
      * @throws SQLException If a database access error occurs or this method is called on a closed connection
      */
-    public ArrayList<String> FindBday(ArrayList<String> list,int days) throws SQLException {
+    public void FindBirthday(ArrayList<String> list, int days) throws SQLException {
 
 
         Statement statement = connection.createStatement();
         Date date = new Date();
-        Date dateplus = DateAdd(date, days);
+        Date date_add = DateAdd(date, days);
 
         String query = "SELECT  * FROM friends tbl WHERE DATE_FORMAT(tbl.Bdate, '%m-%d') BETWEEN " +
-                "'%s' AND '%s'".formatted(formatter.format(date),formatter.format(dateplus)) +
+                "'%s' AND '%s'".formatted(formatter.format(date),formatter.format(date_add)) +
                 " ORDER BY DAYOFMONTH(Bdate) ASC;";
 
         ResultSet resultSet = statement.executeQuery(query);
@@ -77,11 +103,10 @@ Csv {
         resultSet.close();
         statement.close();
 
-        return list;
     }
-    public ArrayList<String> Holiday(ArrayList<String> list,String Gender) throws SQLException {
+    public void Holiday(ArrayList<String> list, String Gender) throws SQLException {
 
-        String query = "";
+        String query ;
         Statement statement = connection.createStatement();
         if(!Gender.toLowerCase().contains("all")){
             query = "SELECT Email FROM friends_info.friends WHERE Gender = %s ;".formatted(Gender);
@@ -96,7 +121,6 @@ Csv {
         resultSet.close();
         statement.close();
 
-        return list;
     }
 
     /**
@@ -145,28 +169,6 @@ Csv {
         connection.commit();
         connection.close();
     }
-    public void AddFriendToTable(PreparedStatement preparedStatement,ArrayList<String> friends) throws IOException, SQLException {
-        for(String f : friends){
-            String[] info = f.split(" ");
-            String name, surname, gender,bdate,zodiac, mail;
 
-            name = info[0];
-            surname = info[1];
-            gender = info[2];
-            bdate = info[3];
-            mail = info[4];
-            zodiac = Functions.getZodiac(bdate);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, surname);
-            preparedStatement.setString(3, gender);
-            preparedStatement.setDate(4, java.sql.Date.valueOf(info[3]));
-            preparedStatement.setString(5,zodiac);
-            preparedStatement.setString(6, mail);
-            preparedStatement.addBatch();
-            System.out.println("Data has been inserted successfully.");
-        }
-
-        preparedStatement.executeBatch();
-    }
 
 }
