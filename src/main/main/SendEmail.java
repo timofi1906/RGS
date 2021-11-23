@@ -27,7 +27,7 @@ public class SendEmail {
     public static void SendBirthdaySMS(String email, String subject, String text, String path, String FileName) {
 
         final String username = "pisoskot1337@gmail.com";
-        final String password = "tima5193192";
+        final String password = "randomgiftsuggestion";
 
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");
