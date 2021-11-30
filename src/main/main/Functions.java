@@ -12,8 +12,18 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * Supporting class with functions
+ * @author Kovalenko Tim
+ * @version 1.0
+ * @since   2021-10-18
+ */
 public class Functions {
-
+    /**
+     * Function to calculate zodiac
+     * @param date Date of birthday
+     * @return String zodiac
+     */
     public static String getZodiac(String date) {
         String[] data  = date.split("-");
         int month = Integer.parseInt(data[1]);
@@ -47,17 +57,27 @@ public class Functions {
             return "Illegal date";
     }
 
-    public static String FriendYear(String sdate){
+    /**
+     * Function to calculate age of friend
+     * @param Birthdate Date of birth
+     * @return String age
+     */
+    public static String FriendYear(String Birthdate){
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = dateFormat.format(date);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate startDate = LocalDate.parse(sdate, formatter);
+        LocalDate startDate = LocalDate.parse(Birthdate, formatter);
         LocalDate endDate = LocalDate.parse(strDate, formatter);
         Period period = Period.between(startDate, endDate);
         return "%s".formatted(period.getYears());
     }
 
+    /**
+     * Check if congratulation have family words
+     * @param line String congratulation
+     * @return boolean is line contain words or no
+     */
     public static boolean isFamily(String line){
         return !line.toLowerCase().contains("sister") && !line.toLowerCase().contains("boss")
                 && !line.toLowerCase().contains("brother") && !line.toLowerCase().contains("mom")
@@ -66,11 +86,21 @@ public class Functions {
                 !line.toLowerCase().contains("daughter") && !line.toLowerCase().contains("aunt") ;
 
     }
+
+    /**
+     * Function to filter bad words in presents
+     * @param line line with name of present
+     * @return boolean is line contain words or no
+     */
     public static boolean WordFilter(String line){
         return !line.contains("More like this") && !line.contains("SVG") && !line.contains("111921")
                 && !line.contains("Profanity") ;
     }
 
+    /**
+     * Function to get table with holidays
+     * @param table Clear table to put list of holidays and their gender
+     */
     public static void Holidays(Map<String,String[]> table){
         String[] christmas = {"All", "https://www.greetingsisland.com/cards/holidays/christmas/1","Christmas"}; //Christmas
         table.put("12-25", christmas);

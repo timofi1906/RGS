@@ -15,6 +15,7 @@ import javax.mail.internet.*;
  */
 
 public class SendEmail {
+
     /**
      * Function to send mail to friend
      *
@@ -68,10 +69,19 @@ public class SendEmail {
             ex.printStackTrace();
         }
     }
+    /**
+     * Function to send mail to friend
+     *
+     * @param FileName First name of friend
+     * @param emails    Array of emails for congratulate all friends
+     * @param subject   Header of mail
+     * @param text      Base of mail
+     * @param path      Path for Picture
+     */
     public static void SendHolidaySMS(ArrayList<String> emails, String subject, String text, String path, String FileName) {
 
-        final String username = "timofei190612@gmail.com";
-        final String password = "tima5193192";
+        final String username = "pisoskot1337@gmail.com";
+        final String password = "randomgiftsuggestion";
 
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");

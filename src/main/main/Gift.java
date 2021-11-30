@@ -20,6 +20,7 @@ import java.util.*;
  * @since   2021-10-18
  */
 public class Gift{
+
     private final ArrayList<String> congratulations;
     private final ArrayList<String> pictures;
     protected String FirstName;
@@ -31,7 +32,12 @@ public class Gift{
     protected Map<String, String> gifts = new HashMap();
     Random random = new Random();
 
-
+    /**
+     * Constructor class Gift
+     * @param Friend Split line for info about friend
+     * @param congratulations ArrayList with parsed congratulations
+     * @param pictures ArrayList with parsed pictures
+     */
     public Gift(String Friend, ArrayList<String> congratulations, ArrayList<String> pictures){
         this.congratulations = congratulations;
         this.pictures = pictures;
@@ -74,7 +80,7 @@ public class Gift{
 
 
     /**
-     * Concate all info together and showing lists with gifts
+     * Concat all info together and showing lists with gifts
      * @throws IOException Wrong path or file not found
      */
     public void BirthDayGreetings() throws IOException {
@@ -102,4 +108,3 @@ public class Gift{
         SendEmail.SendBirthdaySMS(Email, Subject, Text, Path , FirstName + LastName);
     }
 }
-

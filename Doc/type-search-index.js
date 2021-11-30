@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"Auto","l":"AutoCsv"},{"p":"Auto","l":"AutoRGS"},{"p":"Manual","l":"Csv"},{"p":"main","l":"Functions"},{"p":"main","l":"Gift"},{"p":"main","l":"ParseUrl"},{"p":"Manual","l":"RGS"},{"p":"main","l":"SendEmail"}];updateSearchResults();

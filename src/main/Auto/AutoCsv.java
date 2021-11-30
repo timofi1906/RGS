@@ -24,14 +24,27 @@ import java.util.Calendar;
 public class AutoCsv {
 
     protected final String FilePath;
-
+    String url;
+    Connection connection;
+    SimpleDateFormat formatter;
+    /**
+     * Constructor of Class AutoCsv
+     * @param FilePath Path to csv with information about friends
+     * @throws SQLException if a database access error occurs or the url is null
+     */
     public AutoCsv(String FilePath) throws SQLException {
+
         this.FilePath = FilePath;
+        // url to local server
+        url = "jdbc:mysql://localhost:3306/friends_info";
+
+        // Connector to mysql database
+        connection = DriverManager.getConnection(url , "root", "");
+
+        // date formatter to convert date
+        formatter = new SimpleDateFormat("MM-dd");
     }
 
-    String url = "jdbc:mysql://localhost:3306/friends_info";
-    Connection connection = DriverManager.getConnection(url , "root", "");
-    SimpleDateFormat formatter = new SimpleDateFormat("MM-dd");
 
     /**
      * Function CSVtoDB to connect to data table and input info about friends.
@@ -52,7 +65,7 @@ public class AutoCsv {
     }
 
     /**
-     *  Import data from csv file to table
+     * Import data from csv file to table
      * @param preparedStatement An object that represents a precompiled SQL statement.
      * @throws IOException Wrong path or missed file
      * @throws SQLException If a database access error occurs or this method is called on a closed connection
@@ -111,6 +124,13 @@ public class AutoCsv {
         statement.close();
 
     }
+
+    /**
+     * Function to parse list with friends to congratulate them on holiday
+     * @param list Empty ArrayList to get info
+     * @param Gender Check gender holidays ( if no gender (Christmas etc.) holiday gender = all)
+     * @throws SQLException  if a database access error occurs or this method is called on a closed connection
+     */
     public void Holiday(ArrayList<String> list, String Gender) throws SQLException {
         String query;
         Statement statement = connection.createStatement();
@@ -129,7 +149,7 @@ public class AutoCsv {
     }
 
     /**
-     *  Function for delete cloned or similar lines in table
+     * Function for delete cloned or similar lines in table
      * @param statement The object used for executing a static SQL statement and returning the results it produces
      * @throws SQLException If a database access error occurs or this method is called on a closed connection
      */

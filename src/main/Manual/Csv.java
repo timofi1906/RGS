@@ -20,6 +20,11 @@ public class Csv {
 
     protected final ArrayList<String> friends;
 
+    /**
+     * Constructor of Class Csv
+     * @param friends ArrayList with strings lines which contain friends info
+     * @throws SQLException if a database access error occurs or the url is null
+     */
     public Csv(ArrayList<String> friends) throws SQLException {
 
         this.friends = friends;
@@ -104,6 +109,13 @@ public class Csv {
         statement.close();
 
     }
+
+    /**
+     *  Function to parse list with friends to congratulate them on holiday
+     * @param list Empty ArrayList to get info
+     * @param Gender Check gender holidays ( if no gender (Christmas etc.) holiday gender = all)
+     * @throws SQLException  if a database access error occurs or this method is called on a closed connection
+     */
     public void Holiday(ArrayList<String> list, String Gender) throws SQLException {
 
         String query ;
